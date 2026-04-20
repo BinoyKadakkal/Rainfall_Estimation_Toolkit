@@ -198,8 +198,24 @@ class MainWindow(QMainWindow):
             font-size: 13px;
         }
 
+        QToolBox::tab {
+            background: #1e293b;
+            padding: 12px;
+            margin: 1px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 16px;
+            color: #f1f5f9;   /* 🔥 ADD THIS */
+        }
+
+        QToolBox::tab:selected {
+            background: #334155;
+            border-left: 3px solid #38bdf8;
+            color: #ffffff;   /* 🔥 ADD THIS */
+        }
         QLabel {
             color: #cbd5f5;
+            font-size: 13px;
             font-weight: 500;
             margin-bottom: 2px;
         }
@@ -218,8 +234,8 @@ class MainWindow(QMainWindow):
 
         QPushButton {
             background-color: #38bdf8;
-            border-radius: 6px;
-            padding: 8px;
+            border-radius: 12px;
+            padding: 10px;
             color: #0f172a;
             font-weight: bold;
         }
