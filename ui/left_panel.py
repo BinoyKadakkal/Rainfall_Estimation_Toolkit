@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import *
 from core.download import run_download
 from PyQt5.QtCore import QThread, pyqtSignal
+from datetime import datetime
 
 
 
@@ -194,7 +195,18 @@ class LeftPanel(QWidget):
         self.thread.log_signal.connect(self.parent.log_panel.log)
 
         self.thread.start()
+        start_raw = self.start_date.text().strip()
+        end_raw = self.end_date.text().strip()
 
+        start = format_date(start_raw)
+        end = format_date(end_raw)
+
+        if not start or not end:
+            self.parent.log_panel.log("❌ Invalid date format (use DD-MM-YYYY)")
+            return
+        if not start or not end:
+            self.parent.log_panel.log("❌ Invalid date format (use DD-MM-YYYY)")
+            return
     def run_raster(self):
         self.parent.log_panel.log("Raster conversion started")
 
@@ -220,3 +232,10 @@ class DownloadThread(QThread):
     def run(self):
         from core.download import run_download
         run_download(*self.params, self.log_signal.emit)
+
+def format_date(date_str):
+    try:
+        dt = datetime.strptime(date_str, "%d-%m-%Y")
+        return dt.strftime("%Y-%m-%dT00:00:00")
+    except:
+        return None

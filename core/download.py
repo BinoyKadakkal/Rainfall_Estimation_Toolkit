@@ -3,50 +3,23 @@ from core import mdapi
 
 def run_download(username, password, start, end, source, output, log):
 
-    try:
-        log("⬇ Starting download...")
+    dataset_map = {
+        "TERLS": "RCTLS_L2B_STD",
+        "SHAR": "RSHAR_L2B_STD",
+        "CHERRAPUNJI": "RCHER_L2B_STD"
+    }
 
-        # LOGIN
-        tokens = mdapi.get_token(username, password, log)
+    datasetId = dataset_map.get(source, "RCTLS_L2B_STD")
 
-        if not tokens:
-            log("❌ Login failed")
-            return
+    tokens = mdapi.get_token(username, password, log)
 
-        access_token = tokens["access_token"]
+    if not tokens:
+        return
 
-        # DATASET MAP
-        dataset_map = {
-            "TERLS": "RCTLS_L2B_STD",
-            "SHAR": "RSHAR_L2B_STD",
-            "CHERRAPUNJI": "RCHER_L2B_STD"
-        }
+    total, entries = mdapi.search_results(datasetId, start, end, log)
 
-        datasetId = dataset_map.get(source, "RCTLS_L2B_STD")
+    if total == 0:
+        log("⚠ No files found")
+        return
 
-        # SEARCH (FIXED)
-        total, files = mdapi.search_results(
-            datasetId,
-            start,
-            end,
-            access_token,
-            log
-        )
-
-        if total == 0:
-            log("⚠ No files found")
-            return
-
-        # DOWNLOAD
-        success, count = mdapi.fetch_and_download_data(
-            files,
-            access_token,
-            output,
-            log
-        )
-
-        if success:
-            log(f"✅ Download complete: {count} files")
-
-    except Exception as e:
-        log(f"❌ Error: {e}")
+    mdapi.fetch_and_download_data(entries, tokens["access_token"], output, log)

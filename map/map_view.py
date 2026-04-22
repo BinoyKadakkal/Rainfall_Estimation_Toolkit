@@ -11,21 +11,28 @@ class MapView(QWebEngineView):
         html = """
         <html>
         <head>
-        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+            <meta charset="utf-8" />
+
+            <link rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"/>
+
+            <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
         </head>
-        <body>
-        <div id="map" style="width:100%; height:100%;"></div>
 
-        <script>
-        var map = L.map('map').setView([10,76],6);
+        <body style="margin:0;">
+            <div id="map" style="width:100%; height:100%;"></div>
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+            <script>
+            var map = L.map('map').setView([10, 76], 6);
 
-        window.addLayer = function(img, bounds){
-            L.imageOverlay(img, bounds).addTo(map);
-        }
-        </script>
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: 'OSM'
+            }).addTo(map);
+
+            window.addLayer = function(img, bounds){
+                L.imageOverlay(img, bounds).addTo(map);
+            }
+            </script>
         </body>
         </html>
         """
