@@ -198,26 +198,28 @@ class MainWindow(QMainWindow):
             font-size: 13px;
         }
 
+        QToolBox {
+        background-color: #111827;
+        }
+
         QToolBox::tab {
-            background: #1e293b;
-            padding: 12px;
-            margin: 1px;
-            border-radius: 6px;
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 20px;
+            margin: 4px;
+            border-radius: 8px;
             font-weight: bold;
-            font-size: 16px;
-            color: #f1f5f9;   /* 🔥 ADD THIS */
+            font-size: 14px;
         }
 
         QToolBox::tab:selected {
-            background: #334155;
-            border-left: 3px solid #38bdf8;
-            color: #ffffff;   /* 🔥 ADD THIS */
+            background: #374151;
+            border-left: 4px solid #3b82f6;
         }
-        QLabel {
-            color: #cbd5f5;
-            font-size: 13px;
-            font-weight: 500;
-            margin-bottom: 2px;
+                color: #cbd5f5;
+                font-size: 10px;
+                font-weight: 500;
+                margin-bottom: 2px;
         }
 
         QLineEdit, QComboBox, QSpinBox, QDoubleSpinBox {
@@ -233,19 +235,22 @@ class MainWindow(QMainWindow):
         }
 
         QPushButton {
-            background-color: #38bdf8;
-            border-radius: 12px;
+            background-color: #111827;
+            border: 1px solid #3b82f6;
+            border-radius: 8px;
             padding: 10px;
-            color: #0f172a;
+            color: #93c5fd;
             font-weight: bold;
         }
 
         QPushButton:hover {
-            background-color: #0ea5e9;
+            border: 1px solid #60a5fa;
+            background-color: #1e293b;
         }
 
         QPushButton:pressed {
-            background-color: #0284c7;
+            background-color: #3b82f6;
+            color: #0f172a;
         }
 
         QToolBox::tab {

@@ -97,8 +97,7 @@ class LeftPanel(QWidget):
         # ---------------- CAPPI ----------------
         cappi_widget = QWidget()
         cappi_layout = QVBoxLayout()
-        d_layout.setSpacing(8)
-        d_layout.setContentsMargins(10, 10, 10, 10)
+
         self.cappi_in = QLineEdit()
         self.cappi_out = QLineEdit()
         self.altitude = QDoubleSpinBox()
