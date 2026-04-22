@@ -73,7 +73,7 @@ class MainWindow(QMainWindow):
         border-radius: 12px;
         padding: 5px;
         """)
-
+  
         main_splitter.addWidget(top_splitter)
         main_splitter.addWidget(self.log_panel)
 

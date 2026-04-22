@@ -1,0 +1,15 @@
+{
+    "user_credentials": {
+        "username/email": "binoy",
+        "password": "Binoy@3593"
+    },
+    "search_parameters": {
+        "datasetId": "RCTLS_L2B_STD",
+        "startTime": "01-04-2018",
+        "endTime": "02-04-2018"
+    },
+    "download_settings": {
+        "download_path": "/home/icfoss/Binoy",
+        "skip_user_input": true
+    }
+}

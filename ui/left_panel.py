@@ -1,4 +1,7 @@
 from PyQt5.QtWidgets import *
+from core.download import run_download
+from PyQt5.QtCore import QThread, pyqtSignal
+
 
 
 class LeftPanel(QWidget):
@@ -159,8 +162,38 @@ class LeftPanel(QWidget):
         folder = QFileDialog.getExistingDirectory(self)
         self.download_out.setText(folder)
 
+    
     def run_download(self):
-        self.parent.log_panel.log("⬇ Download triggered")
+
+        username = self.username.text().strip()
+        password = self.password.text().strip()
+        start = self.start_date.text().strip()
+        end = self.end_date.text().strip()
+        source = self.source.currentText()
+        output = self.download_out.text().strip()
+
+        # ✅ validation
+        if not username:
+            self.parent.log_panel.log("❌ Enter username")
+            return
+
+        if not password:
+            self.parent.log_panel.log("❌ Enter password")
+            return
+
+        if not output:
+            self.parent.log_panel.log("❌ Select output folder")
+            return
+
+        self.parent.log_panel.log("⬇ Starting download...")
+
+        params = (username, password, start, end, source, output)
+
+        self.thread = DownloadThread(params)
+        self.thread.setParent(self)   # 🔥 important
+        self.thread.log_signal.connect(self.parent.log_panel.log)
+
+        self.thread.start()
 
     def run_raster(self):
         self.parent.log_panel.log("Raster conversion started")
@@ -176,3 +209,14 @@ class LeftPanel(QWidget):
 
     def run_cappi(self):
         self.parent.left_panel_run_cappi()
+
+class DownloadThread(QThread):
+    log_signal = pyqtSignal(str)
+
+    def __init__(self, params):
+        super().__init__()
+        self.params = params
+
+    def run(self):
+        from core.download import run_download
+        run_download(*self.params, self.log_signal.emit)
